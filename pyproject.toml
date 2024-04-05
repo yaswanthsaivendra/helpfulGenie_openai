@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "helpfulgenie-openai"
+version = "0.1.0"
+description = ""
+authors = ["yaswanthsaivendra <yaswanthsaivendra@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.1"
+flask = "^3.0.2"
+flask-cors = "^4.0.0"
+python-dotenv = "^1.0.1"
+openai = "^1.16.2"
+gunicorn = "^21.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
