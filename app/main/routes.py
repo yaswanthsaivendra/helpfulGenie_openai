@@ -1,9 +1,9 @@
 import os
 
 from flask import jsonify, request, send_file
-from .openai_api import question_to_answer, speech_to_text, text_to_speech
 
 from . import main_bp
+from .openai_api import question_to_answer, speech_to_text, text_to_speech
 from .utils import is_allowed_file_extension
 
 

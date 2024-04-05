@@ -1,6 +1,9 @@
+import io
+import os
+
 from openai import OpenAI
 
-client = OpenAI(api_key="")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def speech_to_text(file_path):
@@ -11,8 +14,8 @@ def speech_to_text(file_path):
     transcription = client.audio.transcriptions.create(
         model="whisper-1", file=audio_file, response_format="text"
     )
-    print(transcription.text)
-    return transcription.text
+    print(transcription)
+    return transcription
 
 
 def question_to_answer(transcription_text):
@@ -37,7 +40,8 @@ def text_to_speech(speech_file_path, content):
     """
     converts answer in text format to speech
     """
-    with client.audio.speech.create(
-        model="tts-1", voice="alloy", input=content
-    ) as response:
-        response.stream_to_file(speech_file_path)
+    response = client.audio.speech.create(model="tts-1", voice="alloy", input=content)
+    with io.BytesIO(response.content) as audio_file:
+        audio_file.seek(0)
+        with open(speech_file_path, "wb") as f:
+            f.write(audio_file.read())
